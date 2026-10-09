@@ -169,6 +169,10 @@ Exécutées dans cet environnement (Windows 11, Node 20.20.0) lors de la constru
 
 Voir **[DEPLOIEMENT.md](DEPLOIEMENT.md)** (Netlify, Cloudflare Pages, GitHub Pages).
 
+Le dépôt contient `.github/workflows/pages.yml` : à chaque push sur `main`, GitHub lance les tests, construit le site avec
+`BASE_PATH=/MotoBoost` et le publie sur <https://borymichael.github.io/MotoBoost/> (mode démonstration). Réglage unique requis :
+**Settings → Pages → Source = GitHub Actions**.
+
 ## 9. Licences
 
 Police **Barlow Condensed** © The Barlow Project Authors, licence SIL Open Font License 1.1

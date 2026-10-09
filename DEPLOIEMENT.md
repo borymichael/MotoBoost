@@ -66,7 +66,7 @@ dépendances (`npm ci`), lance les tests, construit avec `BASE_PATH=/MotoBoost` 
 `https://borymichael.github.io/MotoBoost/`) puis publie `dist/`. Un test en échec bloque la publication.
 
 **Réglage à faire une seule fois** (depuis votre compte GitHub) : dépôt → **Settings** → **Pages** → **Build and deployment** →
-**Source** = **GitHub Actions**. Tant que la source est « Deploy from a branch », GitHub affiche le README au lieu du site.
+**Source** = **GitHub Actions**. Tant que la source est « Deploy from a branch », la publication automatique Jekyll de GitHub (« pages build and deployment ») **écrase le site à chaque push** et l'URL affiche le README. Un workflow ne peut pas changer ce réglage lui-même (essayé : refusé par GitHub) ; il faut le faire depuis votre compte.
 
 Suivi des publications : onglet **Actions** du dépôt. Pour republier sans modifier le code : **Actions** → **Déploiement GitHub Pages**
 → **Run workflow**.
