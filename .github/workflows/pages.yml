@@ -1,0 +1,56 @@
+# Déploiement automatique sur GitHub Pages à chaque push sur main.
+# Les tests passent d'abord : un test en échec bloque la publication.
+# Prérequis (une seule fois) : Settings > Pages > Source = « GitHub Actions ».
+name: Déploiement GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Tests
+        run: npm test
+
+      # Le site est servi dans un sous-dossier (https://borymichael.github.io/MotoBoost/).
+      # Mode démonstration : non indexable, bandeau visible, formulaire sans envoi réel.
+      - name: Construire le site
+        run: npm run build
+        env:
+          BASE_PATH: /MotoBoost
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
