@@ -59,12 +59,22 @@ Pour mettre à jour : relancez `npm run build` puis, dans Netlify, **Deploys** �
    variable d'environnement `NODE_VERSION` = `20`.
 3. **Save and Deploy**. Les fichiers `_headers` (sécurité, cache) sont pris en charge nativement.
 
-### Option D — GitHub Pages (en dernier recours)
+### Option D — GitHub Pages (déjà configuré dans ce dépôt)
 
-GitHub Pages ne lit pas `_headers` (la CSP est quand même présente dans chaque page via `<meta>`, sans `frame-ancestors`).
-Si le site est servi dans un sous-dossier (`https://compte.github.io/nom-du-depot/`), construisez avec le préfixe :
-`BASE_PATH=/nom-du-depot npm run build` (PowerShell : `$env:BASE_PATH="/nom-du-depot"; npm run build`), puis publiez le contenu de `dist/`
-sur la branche utilisée par Pages (**Settings** → **Pages**).
+Le fichier `.github/workflows/pages.yml` publie automatiquement le site à **chaque `git push` sur `main`** : il installe les
+dépendances (`npm ci`), lance les tests, construit avec `BASE_PATH=/MotoBoost` (le site est dans un sous-dossier :
+`https://borymichael.github.io/MotoBoost/`) puis publie `dist/`. Un test en échec bloque la publication.
+
+**Réglage à faire une seule fois** (depuis votre compte GitHub) : dépôt → **Settings** → **Pages** → **Build and deployment** →
+**Source** = **GitHub Actions**. Tant que la source est « Deploy from a branch », GitHub affiche le README au lieu du site.
+
+Suivi des publications : onglet **Actions** du dépôt. Pour republier sans modifier le code : **Actions** → **Déploiement GitHub Pages**
+→ **Run workflow**.
+
+Limites de GitHub Pages : le fichier `_headers` est ignoré (la CSP reste présente dans chaque page via `<meta>`, mais sans
+`frame-ancestors` ni les autres en-têtes de sécurité) ; le dépôt est public, donc le site de démonstration l'est aussi (il reste non
+indexable). Pour un autre sous-dossier : `BASE_PATH=/nom-du-depot npm run build`
+(PowerShell : `$env:BASE_PATH="/nom-du-depot"; npm run build`).
 
 ## Étape 2 — Brancher le formulaire
 
