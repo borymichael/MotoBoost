@@ -1,0 +1,23 @@
+{
+  "name": "motoboost-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site vitrine statique MotoBoost (présence numérique des professionnels de la moto)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:prod": "node scripts/build.mjs --production",
+    "dev": "node scripts/serve.mjs --watch",
+    "preview": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "npm test && npm run build"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "html-validate": "^10.17.0",
+    "node-html-parser": "^9.0.4"
+  }
+}

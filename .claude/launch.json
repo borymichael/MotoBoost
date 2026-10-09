@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "motoboost-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/serve.mjs", "--watch"],
+      "port": 3000
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+# Configuration Netlify. Les en-têtes de sécurité viennent du fichier dist/_headers (généré au build).
+# Premier déploiement : mode démonstration (site non indexable). Pour la production, ajoutez les variables
+# d'environnement SITE_MODE=production, SITE_URL et FORM_ENDPOINT dans l'interface Netlify (voir DEPLOIEMENT.md).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
